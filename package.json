@@ -1,0 +1,47 @@
+{
+  "name": "discuss-on-discord",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A GitHub action that creates a thread on Discord for every issue",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts --minify --out build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "fix": "gts fix",
+    "prepare": "husky install",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "prebuild": "npm run clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EndBug/discuss-on-discord.git"
+  },
+  "keywords": [
+    "github",
+    "discord",
+    "github-actions",
+    "actions",
+    "issues",
+    "automation",
+    "ci",
+    "workflow",
+    "hacktoberfest"
+  ],
+  "author": "Federico Grandi <frgandi30@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EndBug/discuss-on-discord/issues"
+  },
+  "homepage": "https://github.com/EndBug/discuss-on-discord#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@types/node": "^18.15.3",
+    "@vercel/ncc": "^0.36.1",
+    "gts": "^3.1.1",
+    "husky": "^8.0.3",
+    "typescript": "^4.9.5"
+  }
+}
