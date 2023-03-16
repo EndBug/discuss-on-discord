@@ -2,6 +2,9 @@ name: 'Sync labels'
 on:
   workflow_dispatch:
 
+permissions:
+  issues: write
+
 jobs:
   sync:
     uses: EndBug/workflows/.github/workflows/labels.yml@main
