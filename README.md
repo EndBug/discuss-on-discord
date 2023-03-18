@@ -76,7 +76,7 @@ The action provides these outputs:
 ```yaml
 on:
   issues:
-    types: [opened]
+    types: [opened] # you can also add reopened, etc. if you want to
 
 permissions:
   issues: write
@@ -89,6 +89,32 @@ jobs:
         with:
           discord_bot_token: ${{ secrets.DISCORD_BOT_TOKEN }}
           destination: https://discord.com/channels/123456789012345678/123456789012345678
+```
+
+### Allow manual dispatch
+
+```yaml
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number'
+        required: true
+
+permissions:
+  issues: write
+
+jobs:
+  discord:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: EndBug/discuss-on-discord@v1
+        with:
+          discord_bot_token: ${{ secrets.DISCORD_BOT_TOKEN }}
+          destination: https://discord.com/channels/123456789012345678/123456789012345678
+          issue_number: ${{ github.event.inputs.issue_number || github.event.issue.number }}
 ```
 
 ## Contributors ✨
