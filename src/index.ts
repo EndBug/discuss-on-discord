@@ -56,6 +56,11 @@ async function initClient(inputs: Inputs) {
         setOutput('comment_link', commentLink);
       } else if (commentID !== null)
         throw new Error('Could not get a valid comment ID: ' + commentID);
+
+      core.info('Done! Exiting...');
+      client.destroy();
+      // eslint-disable-next-line no-process-exit
+      process.exit();
     } catch (e) {
       core.endGroup();
       core.setFailed(e instanceof Error ? e : '' + e);
