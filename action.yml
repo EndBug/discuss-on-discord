@@ -1,0 +1,54 @@
+name: Discuss on Discord
+description: A GitHub action that creates a thread on Discord for every issue
+
+inputs:
+  discord_bot_token:
+    description: The token to use to communicate with the Discord API
+    required: true
+  destination:
+    description: >
+      The link to the message or channel to post messages and create threads in.
+      If a channel link is used, the thread will be created on a new message in
+      that channel. Otherwise, the thread will be created on the linked message.
+    required: true
+
+  discord_message:
+    description: The body of the message to send in the Discord channel (if any)
+    default: >-
+      New issue in `${{ github.repository }}`:
+      <https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}>
+  issue_comment:
+    description: >
+      The body of the comment to post on the issue; set it to an empty string to disable issue comments.
+      Any match of `$THREAD_LINK$` will be replaced with the link to the Discord thread.
+    default: |-
+      Hey 👋, I've just created a tread on Discord for this issue, you can find it [here]($THREAD_LINK$)
+
+      <small>🤖 This comment was automatically posted by <a href="https://github.com/EndBug/discuss-on-discord">Discuss on Discord</a></small>
+  issue_number:
+    description: The issue number to create a thread for
+    default: ${{ github.event.issue.number }}
+  issue_repo:
+    description: The repository that the issue is in
+    default: ${{ github.repository }}
+  github_token:
+    description: The token to use to communicate with the GitHub API
+    default: ${{ github.token }}
+
+outputs:
+  comment_id:
+    description: The ID of the comment that was posted on the issue
+  comment_link:
+    description: The link to the comment that was posted on the issue
+  thread_id:
+    description: The ID of the thread that was created
+  thread_link:
+    description: The link to the thread that was created
+
+runs:
+  using: node16
+  main: build/index.js
+
+branding:
+  icon: rss
+  color: blue
