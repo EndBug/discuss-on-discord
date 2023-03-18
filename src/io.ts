@@ -73,7 +73,9 @@ export async function getInputs(): Promise<Inputs> {
     .split('/');
   if (
     [guild, channel].some(x => !x) ||
-    [guild, channel, message].some(x => !x.match(/^\d+$/))
+    [guild, channel, message as string | undefined].some(
+      x => x && !x.match(/^\d+$/)
+    )
   )
     throw new Error('destination is not a valid channel/message link');
 
