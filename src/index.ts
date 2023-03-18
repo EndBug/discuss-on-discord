@@ -130,11 +130,15 @@ async function commentOnIssue(
   core.startGroup('Commenting on issue...');
   const octokit = github.getOctokit(inputs.github_token);
 
+  const comment_tag = inputs.issue_comment_tag
+    ? '\n\n<sup>🤖 This comment was automatically posted by <a href="https://github.com/EndBug/discuss-on-discord">Discuss on Discord</a></sup>'
+    : '';
+
   const res = await octokit.rest.issues.createComment({
     owner: inputs.issue.repo.owner,
     repo: inputs.issue.repo.name,
     issue_number: inputs.issue.number,
-    body: replaceThreadLink(inputs.issue_comment, threadLink),
+    body: replaceThreadLink(inputs.issue_comment, threadLink) + comment_tag,
   });
 
   const commentID = res.data.id;

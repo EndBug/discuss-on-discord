@@ -6,6 +6,7 @@ interface RawInputs {
   discord_bot_token: string;
   github_token: string;
   issue_comment: string;
+  issue_comment_tag: boolean;
   issue_number: string;
   issue_repo: string;
   discord_message: string;
@@ -29,6 +30,7 @@ export interface Inputs {
     };
   };
   issue_comment: string | undefined;
+  issue_comment_tag: boolean;
 }
 
 export interface Outputs {
@@ -48,6 +50,9 @@ export async function getInputs(): Promise<Inputs> {
     discord_bot_token: core.getInput('discord_bot_token', {required: true}),
     github_token: core.getInput('github_token', {required: true}),
     issue_comment: core.getInput('issue_comment', {required: true}),
+    issue_comment_tag: core.getBooleanInput('issue_comment_tag', {
+      required: true,
+    }),
     issue_number: core.getInput('issue_number', {required: true}),
     issue_repo: core.getInput('issue_repo', {required: true}),
     discord_message: core.getInput('discord_message', {required: true}),
@@ -101,6 +106,10 @@ export async function getInputs(): Promise<Inputs> {
 
   // #region issue_comment
   inputs.issue_comment = raw.issue_comment || undefined;
+  // #endregion
+
+  // #region issue_comment_tag
+  inputs.issue_comment_tag = raw.issue_comment_tag;
   // #endregion
 
   // #region issue_number, issue_repo

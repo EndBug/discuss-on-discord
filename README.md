@@ -43,6 +43,10 @@ For a minimal/typical usage, check out the [examples](#examples) section.
     # Default: see action.yml
     issue_comment: 'Thread here: $THREAD_LINK$'
 
+    # Whether to include a link to the action at the end of the GitHub comment
+    # Default: true
+    issue_comment_tag: false
+
     # The issue number to create a thread for
     # Default: ${{ github.event.issue.number }}
     issue_number: 123
