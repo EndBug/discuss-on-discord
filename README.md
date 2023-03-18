@@ -22,11 +22,14 @@ For a minimal/typical usage, check out the [examples](#examples) section.
     # ⬇️ Required inputs ⬇️
 
     # The token to use to communicate with the Discord API
+    # The bot should have permission to send messages and create threads in the channel
     discord_bot_token: ${{ secrets.DISCORD_BOT_TOKEN }}
 
     # The link to the message or channel to post messages and create threads in.
     # If a channel link is used, the thread will be created on a new message in
     # that channel. Otherwise, the thread will be created on the linked message.
+    # Remember that each message can only have one thread, so if you use a message
+    # link, make sure that the message doesn't already have one.
     destination: https://discord.com/channels/123456789012345678/123456789012345678
 
     # ⬇️ Optional inputs ⬇️
@@ -70,6 +73,9 @@ The action provides these outputs:
 on:
   issues:
     types: [opened]
+
+permissions:
+  issues: write
 
 jobs:
   discord:
