@@ -24,7 +24,7 @@ inputs:
     default: |-
       Hey 👋, I've just created a tread on Discord for this issue, you can find it [here]($THREAD_LINK$)
 
-      <small>🤖 This comment was automatically posted by <a href="https://github.com/EndBug/discuss-on-discord">Discuss on Discord</a></small>
+      <sup>🤖 This comment was automatically posted by <a href="https://github.com/EndBug/discuss-on-discord">Discuss on Discord</a></sup>
   issue_number:
     description: The issue number to create a thread for
     default: ${{ github.event.issue.number }}
