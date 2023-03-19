@@ -4,6 +4,10 @@ on:
     - cron: '00 5,17 * * *'
   workflow_dispatch:
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   stale:
     uses: EndBug/workflows/.github/workflows/stale.yml@main
