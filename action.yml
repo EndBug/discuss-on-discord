@@ -21,7 +21,7 @@ inputs:
     description: >
       The body of the comment to post on the issue; set it to an empty string to disable issue comments.
       Any match of `$THREAD_LINK$` will be replaced with the link to the Discord thread.
-    default: Hey 👋, I've just created a tread on Discord for this issue, you can find it [here]($THREAD_LINK$)
+    default: Hey 👋, I've just created a thread on Discord for this issue, you can find it [here]($THREAD_LINK$)
   issue_comment_tag:
     description: Whether to include a link to the action at the end of the GitHub comment
     default: 'true'
