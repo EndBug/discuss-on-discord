@@ -45,6 +45,6 @@
     "discord.js": "^14.8.0",
     "gts": "^3.1.1",
     "husky": "^8.0.3",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.3"
   }
 }
