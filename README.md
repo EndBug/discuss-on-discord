@@ -38,6 +38,11 @@ For a minimal/typical usage, check out the [examples](#examples) section.
     # Default: see action.yml
     discord_message: New issue!
 
+    # The link to an existing thread to use instead of creating a new one
+    # If left empty or unset, a new thread will be created
+    # Default: ''
+    existing_discord_thread: 'https://discord.com/channels/123456789012345678/123456789012345678'
+
     # The body of the comment to post on the issue; set it to an empty string to disable issue comments.
     # Any match of `$THREAD_LINK$` will be replaced with the link to the Discord thread.
     # Default: see action.yml
