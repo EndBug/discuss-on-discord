@@ -47,7 +47,7 @@ import {Client} from 'discord.js';
     setOutput('thread_id', threadLink.split('/').pop()!);
     setOutput('thread_link', threadLink);
 
-    if (github.context.action === 'edited') {
+    if (github.context.payload.action === 'edited') {
       core.info('Issue has been edited, updating thread title...');
       return initClient(inputs, async client => {
         try {
