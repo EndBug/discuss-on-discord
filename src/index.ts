@@ -12,13 +12,21 @@ import {getIssueCommentLink, getThreadLink} from './utils';
 
   return initClient(inputs, async client => {
     try {
-      const thread = await createThread(client, inputs);
+      let threadLink = inputs.existing_discord_thread;
 
-      if (!thread || !thread.isThread())
-        throw new Error('Could not create a valid thread link: ' + thread);
+      if (!threadLink) {
+        core.info('Creating a new thread...');
+        const thread = await createThread(client, inputs);
 
-      const threadLink = getThreadLink(thread);
-      setOutput('thread_id', thread.id);
+        if (!thread || !thread.isThread())
+          throw new Error('Could not create a valid thread link: ' + thread);
+
+        threadLink = getThreadLink(thread);
+        setOutput('thread_id', thread.id);
+      } else {
+        core.info('Using existing thread...');
+        setOutput('thread_id', threadLink.split('/').pop()!);
+      }
       setOutput('thread_link', threadLink);
 
       const commentID = await commentOnIssue(inputs, threadLink);

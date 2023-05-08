@@ -1,9 +1,11 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
+import {isDiscordLink, parseDiscordLink} from './utils';
 
 interface RawInputs {
   destination: string;
   discord_bot_token: string;
+  existing_discord_thread: string;
   github_token: string;
   issue_comment: string;
   issue_comment_tag: boolean;
@@ -20,6 +22,7 @@ export interface Inputs {
   };
   discord_bot_token: string;
   discord_message: string;
+  existing_discord_thread: string | undefined;
   github_token: string;
   issue: {
     number: number;
@@ -48,6 +51,7 @@ export async function getInputs(): Promise<Inputs> {
   const raw: RawInputs = {
     destination: core.getInput('destination', {required: true}),
     discord_bot_token: core.getInput('discord_bot_token', {required: true}),
+    existing_discord_thread: core.getInput('existing_discord_thread'),
     github_token: core.getInput('github_token', {required: true}),
     issue_comment: core.getInput('issue_comment', {required: true}),
     issue_comment_tag: core.getBooleanInput('issue_comment_tag', {
@@ -69,25 +73,17 @@ export async function getInputs(): Promise<Inputs> {
   // #endregion
 
   // #region destination
-  const DISCORD_CHANNEL_PREFIX = 'https://discord.com/channels/';
-  if (!raw.destination.startsWith(DISCORD_CHANNEL_PREFIX))
-    throw new Error('destination is not a valid channel/message link');
+  if (!isDiscordLink(raw.destination))
+    throw new Error('destination is not a valid Discord link');
 
-  const [guild, channel, message] = raw.destination
-    .slice(DISCORD_CHANNEL_PREFIX.length)
-    .split('/');
-  if (
-    [guild, channel].some(x => !x) ||
-    [guild, channel, message as string | undefined].some(
-      x => x && !x.match(/^\d+$/)
-    )
-  )
+  const dest = parseDiscordLink(raw.destination);
+  if (!dest.channel)
     throw new Error('destination is not a valid channel/message link');
 
   inputs.destination = {
-    guild,
-    channel,
-    message: message || undefined,
+    guild: dest.guild,
+    channel: dest.channel,
+    message: dest.message || undefined,
   };
   // #endregion
 
@@ -98,6 +94,22 @@ export async function getInputs(): Promise<Inputs> {
     );
   inputs.discord_message = raw.discord_message;
   // #endregion
+
+  // #region existing_discord_thread
+  if (raw.existing_discord_thread) {
+    if (!isDiscordLink(raw.existing_discord_thread))
+      throw new Error('existing_discord_thread is not a valid channel link');
+
+    const {guild, channel} = parseDiscordLink(raw.existing_discord_thread);
+    if (!channel)
+      throw new Error('existing_discord_thread is not a valid channel link');
+
+    if (guild !== inputs.destination.guild)
+      throw new Error(
+        'existing_discord_thread is not in the same guild as destination'
+      );
+  }
+  inputs.existing_discord_thread = raw.existing_discord_thread || undefined;
 
   // #region github_token
   if (!raw.github_token) throw new Error('github_token is empty');

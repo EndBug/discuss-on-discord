@@ -1,6 +1,8 @@
 import {ThreadChannel} from 'discord.js';
 import {Inputs} from './io';
 
+export const DISCORD_CHANNEL_PREFIX = 'https://discord.com/channels/';
+
 /**
  * Creates a GitHub issue comment link
  * @param issue The issue input
@@ -16,6 +18,36 @@ export function getIssueCommentLink(issue: Inputs['issue'], commentID: number) {
  */
 export function getThreadLink(thread: ThreadChannel) {
   return `https://discord.com/channels/${thread.guildId}/${thread.id}`;
+}
+
+/** Checks if a string is a Discord link */
+export function isDiscordLink(str: string) {
+  const ids = str.slice(DISCORD_CHANNEL_PREFIX.length).split('/');
+
+  return (
+    str.startsWith(DISCORD_CHANNEL_PREFIX) &&
+    ids.length >= 1 &&
+    ids.length <= 3 &&
+    ids.every(id => id && id.match(/^\d+$/))
+  );
+}
+
+/** Parses a Discord link into guild, channel, and message */
+export function parseDiscordLink(str: string): {
+  guild: string;
+  channel: string | undefined;
+  message: string | undefined;
+} {
+  const [guild, channel, message] = str
+    .slice(DISCORD_CHANNEL_PREFIX.length)
+    .split('/')
+    .slice(0, 3);
+
+  return {
+    guild,
+    channel,
+    message,
+  };
 }
 
 /**
