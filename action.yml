@@ -17,6 +17,9 @@ inputs:
     default: >-
       New issue in `${{ github.repository }}`:
       <https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}>
+  existing_discord_thread:
+    description: The link to the existing Discord thread to use
+    default: ''
   issue_comment:
     description: >
       The body of the comment to post on the issue; set it to an empty string to disable issue comments.
