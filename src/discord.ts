@@ -60,7 +60,7 @@ export async function createThread(
   }
 
   const thread = await message.startThread({
-    name: `#${inputs.issue.number} - ${inputs.issue.title}`,
+    name: getThreadName(inputs),
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
   });
 
@@ -68,4 +68,26 @@ export async function createThread(
   core.endGroup();
 
   return thread;
+}
+
+/** Generates the thread name from the given inputs */
+export function getThreadName(inputs: Inputs) {
+  return `#${inputs.issue.number} - ${inputs.issue.title}`;
+}
+
+/**
+ * Updates a thread's name
+ * @param threadID The ID of the thread to update
+ * @param client The Discord.js client
+ * @param inputs The action inputs
+ */
+export async function updateThreadName(
+  threadID: string,
+  client: Client,
+  inputs: Inputs
+) {
+  const thread = await client.channels.fetch(threadID);
+  if (!thread?.isThread()) throw new Error('Could not fetch thread.');
+
+  return thread.setName(getThreadName(inputs));
 }

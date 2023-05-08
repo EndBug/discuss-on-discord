@@ -40,6 +40,8 @@ For a minimal/typical usage, check out the [examples](#examples) section.
 
     # The link to an existing thread to use instead of creating a new one
     # If left empty or unset, a new thread will be created
+    # If an existing thread is set, and the action is run on the "edited" event action,
+    # then the title of the thread will be updated to match the new title of the issue.
     # Default: ''
     existing_discord_thread: 'https://discord.com/channels/123456789012345678/123456789012345678'
 
@@ -120,6 +122,31 @@ jobs:
           discord_bot_token: ${{ secrets.DISCORD_BOT_TOKEN }}
           destination: https://discord.com/channels/123456789012345678/123456789012345678
           issue_number: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+```
+
+### Update an existing thread
+
+```yaml
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  discord:
+    runs-on: ubuntu-latest
+    steps:
+      - id: thread
+        # Let's assume that you're setting a `link` output in this step
+        # For example, you could get this from a project
+
+      - uses: EndBug/discuss-on-discord@v1
+        with:
+          discord_bot_token: ${{ secrets.DISCORD_BOT_TOKEN }}
+          existing_discord_thread: ${{ steps.thread.outputs.link }}
+          destination: https://discord.com/channels/123456789012345678/123456789012345678
 ```
 
 ## Contributors ✨
