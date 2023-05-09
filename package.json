@@ -11,7 +11,6 @@
     "clean": "gts clean",
     "fix": "gts fix",
     "prepare": "husky install",
-    "pretest": "npm run compile",
     "posttest": "npm run lint",
     "prebuild": "npm run clean"
   },
