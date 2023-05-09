@@ -1,6 +1,6 @@
 {
   "name": "discuss-on-discord",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A GitHub action that creates a thread on Discord for every issue",
   "main": "build/index.js",
