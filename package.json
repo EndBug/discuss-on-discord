@@ -42,8 +42,11 @@
     "@vercel/ncc": "^0.36.1",
     "all-contributors-cli": "^6.26.1",
     "discord.js": "^14.13.0",
-    "gts": "^3.1.1",
+    "gts": "^5.0.1",
     "husky": "^8.0.3",
     "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^5.0.0"
   }
 }
