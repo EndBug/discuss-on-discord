@@ -42,7 +42,7 @@
     "@vercel/ncc": "^0.38.0",
     "all-contributors-cli": "^6.26.1",
     "discord.js": "^14.13.0",
-    "gts": "^5.0.1",
+    "gts": "^5.2.0",
     "husky": "^8.0.3",
     "typescript": "^5.2.2"
   },
