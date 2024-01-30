@@ -10,7 +10,7 @@
     "lint": "gts lint",
     "clean": "gts clean",
     "fix": "gts fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "posttest": "npm run lint",
     "prebuild": "npm run clean"
   },
@@ -43,7 +43,7 @@
     "all-contributors-cli": "^6.26.1",
     "discord.js": "^14.14.1",
     "gts": "^5.2.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
