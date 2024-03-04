@@ -49,7 +49,7 @@ outputs:
     description: The link to the thread that was created
 
 runs:
-  using: node16
+  using: node20
   main: build/index.js
 
 branding:
