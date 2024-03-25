@@ -44,7 +44,7 @@
     "discord.js": "^14.14.1",
     "gts": "^5.2.0",
     "husky": "^9.0.11",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^5.1.3"
